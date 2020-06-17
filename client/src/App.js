@@ -1,4 +1,8 @@
 import React from 'react';
+import { Router, Route} from 'react-router-dom';
+import history from './history'
+import users from './apis/users.js'
+import CreateProfile from './pages/CreateProfile.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -6,10 +10,25 @@ class App extends React.Component {
         this.state = {fullName: ""};
     }
 
+    onPostSubmit = async name => {
+        await users.post('/users', name);
+    };
+
     render() {
         return (
             <div>
-                Hi there!
+                <Router history={history}>
+                    <div>
+                        <Route exact
+                            path="/form" 
+                            render={(props) => 
+                                <div className="ui container"> 
+                                    <CreateProfile {...props} onSubmit={this.onPostSubmit}/>
+                                </div>
+                            }
+                        />
+                    </div>
+                </Router>
             </div>
         )
     }
