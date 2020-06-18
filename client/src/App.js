@@ -5,6 +5,7 @@ import users from './apis/users.js'
 import Profile from './pages/Profile.js';
 import CreateProfile from './pages/CreateProfile.js';
 import EnterInfo from './pages/EnterInfo.js';
+import Modal from './pages/Modal.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -42,10 +43,30 @@ class App extends React.Component {
         this.getIDHelper(name);
    };
 
+   //Delete name from db.json using the id associated with name.
+    onDeleteSubmit = async id => {
+        await users.delete(`/users/${id}`);
+        this.setState({fullName: "", id: "", signedIn: true, redirectToReferrer: true});    
+        history.push('/profile');
+    };
+
     render() {
         if (this.state.redirectToReferrer === true) {   
             history.push('/profile');
         }
+
+        const actions = (
+            <React.Fragment>
+                <button 
+                    onClick={()=> this.onDeleteSubmit(this.state.id)} 
+                    className="ui button negative">Delete
+                </button>
+                <button 
+                    onClick={()=>history.push('/profile')}
+                    className="ui button">Cancel
+                </button>
+            </React.Fragment>
+        );
         
         return (
             <div>
@@ -69,6 +90,19 @@ class App extends React.Component {
                                 <div className="ui container"> 
                                     <EnterInfo {...props} onSubmit={this.onGetSubmit} />
                                 </div>}
+                        />
+                        <Route exact
+                            path="/delete"
+                            render={() => 
+                                <div className="ui container">
+                                    <Modal 
+                                        title="Delete Profile"
+                                        content="Are you sure you want to delete this profile?"
+                                        actions={actions}
+                                        onDismiss={() => history.push('/profile')}
+                                     />  
+                                </div> 
+                            }
                         />
                     </div>
                 </Router>
