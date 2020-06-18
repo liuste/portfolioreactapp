@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-//CreateProfile displays a form for user to enter their name to create a profile
-class CreateProfile extends React.Component {
+//EnterInfo displays a form for user to enter their name to get to their profile
+class EnterInfo extends React.Component {
     
     state = {fullName: ""};
 
@@ -15,23 +15,23 @@ class CreateProfile extends React.Component {
         return (
             <div className="ui segment">
                 <form className="ui form" onSubmit={this.onFormSubmit}>
-                    <h4 class="ui dividing header">Create a Profile</h4>
+                    <h4 class="ui dividing header">Look Up Profile</h4>
                     <div className="field">
                         <label>Enter fullname </label>
                         <input 
                             type="text" 
-                            value={this.state.fullName} 
+                            value={this.state.name} 
                             onChange={(e) => this.setState({ fullName: e.target.value })}
                         />
                     </div>
                 </form>
 
-                <Link to="/login" className="item">
-                    If you already have profile, click here to sign in.
-                </Link>
+                <Link to="/form" className="item">
+                    If you need to create a profile, click here.
+                </Link>    
             </div>
-        );
+        );  
     }
 }
 
-export default CreateProfile;
+export default EnterInfo;
