@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route} from 'react-router-dom';
 import history from './history'
 import users from './apis/users.js'
+import HomePage from './pages/HomePage.js';
 import Profile from './pages/Profile.js';
 import CreateProfile from './pages/CreateProfile.js';
 import EnterInfo from './pages/EnterInfo.js';
@@ -72,6 +73,10 @@ class App extends React.Component {
             <div>
                 <Router history={history}>
                     <div>
+                        <Route exact
+                            path="/"  
+                            render={()=><HomePage/>}
+                        />
                         <Route exact
                             path="/form" 
                             render={(props) => 

@@ -22,9 +22,6 @@ const Profile = (props) => {
             <Link to="/" className="item">
                 Click here to go back to home page.
             </Link>
-            <Button className="resume-btn" variant="contained" color="primary">
-                <a href="https://imgur.com/5B5b2FR">View Resume</a>
-            </Button>   
         </StyledWrapper>
     );
 };
@@ -35,11 +32,6 @@ const StyledWrapper = styled.div`
     .name{
         margin: 0;
     }
-    .resume-btn{
-        
-        position: relative;
-        left: 25vw;
-    }
     @media all and (max-width: 450px){
         position: relative;
         left: 20vw;
@@ -47,11 +39,6 @@ const StyledWrapper = styled.div`
             margin: 0;
             font-size: 20px;
         } 
-        .resume-btn{
-            font-size:8px; 
-            position: relative;
-            left: 25vw;
-        }
     }
 `
     
