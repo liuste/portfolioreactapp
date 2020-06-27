@@ -1,37 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createProfile } from '../actions';
+import InputForm from './InputForm.js';
 
-//CreateProfile displays a form for user to enter their name to create a profile
 class CreateProfile extends React.Component {
     
-    state = {fullName: ""};
-
-    onFormSubmit = event => {
-        event.preventDefault();
-        this.props.onSubmit(this.state);
+    onSubmit = formValues => {
+        this.props.createProfile(formValues);
+        console.log(formValues.fullName);
+        
     };
 
     render() {
+        console.log(this.props.name);
         return (
-            <div className="ui segment">
-                <form className="ui form" onSubmit={this.onFormSubmit}>
-                    <h4 class="ui dividing header">Create a Profile</h4>
-                    <div className="field">
-                        <label>Enter fullname </label>
-                        <input 
-                            type="text" 
-                            value={this.state.fullName} 
-                            onChange={(e) => this.setState({ fullName: e.target.value })}
-                        />
-                    </div>
-                </form>
-
-                <Link to="/login" className="item">
-                    If you already have profile, click here to sign in.
-                </Link>
-            </div>
+            
+                <InputForm onSubmit={this.onSubmit} /> 
+                
         );
+       
     }
 }
 
-export default CreateProfile;
+const mapStateToProps = state => {
+    return { name: state.name.fullName } 
+};
+
+export default connect(
+    mapStateToProps, 
+    { createProfile }
+)(CreateProfile);
